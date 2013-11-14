@@ -1,0 +1,17 @@
+name: CastleWars
+main: castlewars.CastleWars
+version: 0.0.2a
+
+commands:
+  castlewars:
+    usage: /castlewars <start|stop> [buildTime] [prepareTime] [keepInventory]
+  kit:
+    usage: /kit <player>
+  setkit:
+    usage: /setkit <team>
+  setspawn:
+    usage: /setspawn <team>
+  spawn:
+    usage: /spawn <player>
+  t:
+    usage: /t <private message ...
