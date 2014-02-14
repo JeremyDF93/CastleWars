@@ -42,7 +42,7 @@ public abstract class CommandBase {
 	}
 
 	public String getPermissionName() {
-		return "walrusmod." + this.getName();
+		return "castlewars." + this.getName();
 	}
 
 	public Player getPlayerByName(String name) {
