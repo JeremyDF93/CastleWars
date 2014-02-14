@@ -1,9 +1,10 @@
 package castlewars.listener;
 
-import net.minecraft.server.v1_6_R3.EntityPlayer;
+import net.minecraft.server.v1_7_R1.EntityPlayer;
+import net.minecraft.server.v1_7_R1.ScoreboardTeam;
 
 import org.bukkit.ChatColor;
-import org.bukkit.craftbukkit.v1_6_R3.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_7_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -29,11 +30,12 @@ public class PlayerListener implements Listener {
 	public void onAsyncPlayerChat(AsyncPlayerChatEvent event) {
 		Player player = event.getPlayer();
 		EntityPlayer entityPlayer = ((CraftPlayer) player).getHandle();
-
+		String playerDisplayName = ScoreboardTeam.getPlayerDisplayName(entityPlayer.getScoreboardTeam(), entityPlayer.getName());
+		
 		if (plugin.getTeamManager().isSpectating(player)) {
-			event.setFormat("*<" + entityPlayer.getScoreboardDisplayName() + "> " + event.getMessage());
+			event.setFormat("*<" + playerDisplayName + "> " + event.getMessage());
 		} else {
-			event.setFormat("<" + entityPlayer.getScoreboardDisplayName() + "> " + event.getMessage());
+			event.setFormat("<" + playerDisplayName + "> " + event.getMessage());
 		}
 	}
 
@@ -68,6 +70,7 @@ public class PlayerListener implements Listener {
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		Player player = event.getPlayer();
 		EntityPlayer entityPlayer = ((CraftPlayer) player).getHandle();
+		String playerDisplayName = ScoreboardTeam.getPlayerDisplayName(entityPlayer.getScoreboardTeam(), entityPlayer.getName());
 
 		if (!plugin.getTeamManager().hasTeam(player)) {
 			plugin.getTeamManager().setSpectating(player, 1);
@@ -75,28 +78,31 @@ public class PlayerListener implements Listener {
 			player.setFlying(true);
 			player.sendMessage(ChatColor.RED + "You have joined a game in progress and have been set as a spectator.");
 		}
-
-		event.setJoinMessage(ChatColor.YELLOW + entityPlayer.getScoreboardDisplayName() + ChatColor.YELLOW + " joined the game.");
+		
+		event.setJoinMessage(ChatColor.YELLOW + playerDisplayName + ChatColor.YELLOW + " joined the game.");
 	}
 
 	@EventHandler
 	public void onPlayerKick(PlayerKickEvent event) {
 		Player player = event.getPlayer();
 		EntityPlayer entityPlayer = ((CraftPlayer) player).getHandle();
-		event.setLeaveMessage(ChatColor.YELLOW + entityPlayer.getScoreboardDisplayName() + ChatColor.YELLOW + " left the game.");
+		String playerDisplayName = ScoreboardTeam.getPlayerDisplayName(entityPlayer.getScoreboardTeam(), entityPlayer.getName());
+		event.setLeaveMessage(ChatColor.YELLOW + playerDisplayName + ChatColor.YELLOW + " left the game.");
 	}
 
 	@EventHandler
 	public void onPlayerQuit(PlayerQuitEvent event) {
 		Player player = event.getPlayer();
 		EntityPlayer entityPlayer = ((CraftPlayer) player).getHandle();
-		event.setQuitMessage(ChatColor.YELLOW + entityPlayer.getScoreboardDisplayName() + ChatColor.YELLOW + " left the game.");
+		String playerDisplayName = ScoreboardTeam.getPlayerDisplayName(entityPlayer.getScoreboardTeam(), entityPlayer.getName());
+		event.setQuitMessage(ChatColor.YELLOW + playerDisplayName + ChatColor.YELLOW + " left the game.");
 	}
 
 	@EventHandler
 	public void onPlayerRespawn(PlayerRespawnEvent event) {
 		Player player = event.getPlayer();
 		EntityPlayer entityPlayer = ((CraftPlayer) player).getHandle();
+		String playerDisplayName = ScoreboardTeam.getPlayerDisplayName(entityPlayer.getScoreboardTeam(), entityPlayer.getName());
 
 		if (plugin.getGameManager().isPlaying() && plugin.getTeamManager().hasTeam(player) && !plugin.getTeamManager().isSpectating(player)) {
 			if (plugin.getTeamManager().getDeaths(player) >= plugin.getConfig().getInt("player-lives", 3)) {
@@ -104,7 +110,7 @@ public class PlayerListener implements Listener {
 				player.setAllowFlight(true);
 				player.setFlying(true);
 				player.sendMessage(ChatColor.RED + "You have no more lives and will now be set as a spectator.");
-				plugin.getServer().broadcastMessage(ChatColor.YELLOW + entityPlayer.getScoreboardDisplayName() + ChatColor.YELLOW + " has been defeated an is now spectating.");
+				plugin.getServer().broadcastMessage(ChatColor.YELLOW + playerDisplayName + ChatColor.YELLOW + " has been defeated an is now spectating.");
 			} else {
 				plugin.getTeamManager().kitPlayer(player);
 			}

@@ -1,11 +1,11 @@
 package castlewars.command;
 
-import net.minecraft.server.v1_6_R3.EntityPlayer;
+import net.minecraft.server.v1_7_R1.EntityPlayer;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandException;
 import org.bukkit.command.CommandSender;
-import org.bukkit.craftbukkit.v1_6_R3.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_7_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.PermissionDefault;
 import org.bukkit.scoreboard.Team;

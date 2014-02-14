@@ -1,10 +1,11 @@
 package castlewars.listener;
 
-import net.minecraft.server.v1_6_R3.EntityPlayer;
+import net.minecraft.server.v1_7_R1.EntityPlayer;
+import net.minecraft.server.v1_7_R1.ScoreboardTeam;
 
 import org.bukkit.block.Beacon;
 import org.bukkit.block.Block;
-import org.bukkit.craftbukkit.v1_6_R3.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_7_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -28,6 +29,7 @@ public class BlockListener implements Listener {
 		Player player = event.getPlayer();
 		Team playerTeam = plugin.getTeamManager().getTeam(player);
 		EntityPlayer entityPlayer = ((CraftPlayer) player).getHandle();
+		String playerDisplayName = ScoreboardTeam.getPlayerDisplayName(entityPlayer.getScoreboardTeam(), entityPlayer.getName());
 
 		if (plugin.getGameManager().isGameInProgress()) {
 			if (plugin.getTeamManager().isSpectating(player)) {
@@ -39,7 +41,7 @@ public class BlockListener implements Listener {
 
 					if (playerTeam != null && otherTeam != null) {
 						if (!playerTeam.equals(otherTeam) && plugin.getGameManager().isPlaying()) {
-							plugin.getServer().broadcastMessage(entityPlayer.getScoreboardDisplayName() + " has destroyed " + otherTeam.getDisplayName() + " teams core!");
+							plugin.getServer().broadcastMessage(playerDisplayName + " has destroyed " + otherTeam.getDisplayName() + " teams core!");
 							plugin.getServer().broadcastMessage(playerTeam.getDisplayName() + " team wins the battle!");
 							return;
 						} else {

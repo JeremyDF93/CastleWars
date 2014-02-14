@@ -5,17 +5,17 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.Iterator;
 
-import net.minecraft.server.v1_6_R3.EntityHuman;
-import net.minecraft.server.v1_6_R3.NBTCompressedStreamTools;
-import net.minecraft.server.v1_6_R3.NBTTagCompound;
-import net.minecraft.server.v1_6_R3.NBTTagDouble;
-import net.minecraft.server.v1_6_R3.NBTTagFloat;
-import net.minecraft.server.v1_6_R3.NBTTagList;
+import net.minecraft.server.v1_7_R1.EntityHuman;
+import net.minecraft.server.v1_7_R1.NBTCompressedStreamTools;
+import net.minecraft.server.v1_7_R1.NBTTagCompound;
+import net.minecraft.server.v1_7_R1.NBTTagDouble;
+import net.minecraft.server.v1_7_R1.NBTTagFloat;
+import net.minecraft.server.v1_7_R1.NBTTagList;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.craftbukkit.v1_6_R3.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_7_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
@@ -81,8 +81,8 @@ public class TeamManager {
 			NBTTagList tagListPos = (NBTTagList) tagCompound.get("Pos");
 			NBTTagList tagListRotation = (NBTTagList) tagCompound.get("Rotation");
 
-			Location location = new Location(player.getWorld(), ((NBTTagDouble) tagListPos.get(0)).data, ((NBTTagDouble) tagListPos.get(1)).data,
-					((NBTTagDouble) tagListPos.get(2)).data, ((NBTTagFloat) tagListRotation.get(0)).data, ((NBTTagFloat) tagListRotation.get(1)).data);
+			Location location = new Location(player.getWorld(), tagListPos.d(0), tagListPos.d(1), tagListPos.d(2), 
+					tagListRotation.e(0), tagListRotation.e(1));
 
 			return location;
 		}
@@ -214,7 +214,7 @@ public class TeamManager {
 		NBTTagList tagList = new NBTTagList();
 
 		for (int i = 0; i < d.length; i++) {
-			tagList.add(new NBTTagDouble(null, d[i]));
+			tagList.add(new NBTTagDouble(d[i]));
 		}
 
 		return tagList;
@@ -224,7 +224,7 @@ public class TeamManager {
 		NBTTagList tagList = new NBTTagList();
 
 		for (int i = 0; i < f.length; i++) {
-			tagList.add(new NBTTagFloat(null, f[i]));
+			tagList.add(new NBTTagFloat(f[i]));
 		}
 
 		return tagList;
@@ -235,7 +235,7 @@ public class TeamManager {
 
 		if (plugin.getTeamManager().hasTeam(player)) {
 			NBTTagCompound tagCompound = getTeamTag(getTeam(player));
-			entityHuman.inventory.b(tagCompound.getList("Inventory"));
+			entityHuman.inventory.b((NBTTagList) tagCompound.get("Inventory"));
 		}
 	}
 
