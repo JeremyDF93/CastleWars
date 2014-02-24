@@ -22,7 +22,7 @@ public class CommandCastleWars extends CommandBase {
 
 	@Override
 	public void performCommand(CommandSender sender, Command command, String[] args) {
-		if (args.length > 0) {
+		if (args.length >= 1) {
 			if (args[0].equalsIgnoreCase("start")) {
 				if (!plugin.getGameManager().isGameInProgress()) {
 					int buildTime = args.length >= 2 ? parseInt(args[1], 0) : 120;

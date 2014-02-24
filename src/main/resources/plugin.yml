@@ -1,17 +1,23 @@
 name: CastleWars
 main: castlewars.CastleWars
-version: 0.0.3
+version: 1.0.0
 
 commands:
   castlewars:
     usage: /castlewars <start|stop> [buildTime] [prepareTime] [keepInventory]
   kit:
     usage: /kit <player>
+  setcore:
+    usage: /setcore <team>
   setkit:
     usage: /setkit <team>
   setspawn:
     usage: /setspawn <team>
+  siegeblocks:
+    usage: /siegeblocks <add|remove|list> <block>
   spawn:
     usage: /spawn <player>
   t:
     usage: /t <private message ...
+  team:
+    usage: /team <join|leave> [player] [keepInventory]

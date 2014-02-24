@@ -38,9 +38,9 @@ public class TeamManager {
 		this.scoreboardManager = this.plugin.getServer().getScoreboardManager();
 		this.scoreboard = this.scoreboardManager.getMainScoreboard();
 
-		this.kills = registerObjective("kills", "playerKillCount");
-		this.deaths = registerObjective("deaths", "deathCount");
-		this.spectating = registerObjective("spectating", "dummy");
+		this.kills = registerObjective("kills", "Players Killed", "playerKillCount");
+		this.deaths = registerObjective("deaths", "Deaths", "deathCount");
+		this.spectating = registerObjective("spectating", "Spectating", "dummy");
 
 		registerTeam("red", "Red", ChatColor.RED);
 		registerTeam("blue", "Blue", ChatColor.BLUE);
@@ -81,7 +81,7 @@ public class TeamManager {
 			NBTTagList tagListPos = (NBTTagList) tagCompound.get("Pos");
 			NBTTagList tagListRotation = (NBTTagList) tagCompound.get("Rotation");
 
-			Location location = new Location(player.getWorld(), tagListPos.d(0), tagListPos.d(1), tagListPos.d(2), 
+			Location location = new Location(player.getWorld(), tagListPos.d(0), tagListPos.d(1), tagListPos.d(2),
 					tagListRotation.e(0), tagListRotation.e(1));
 
 			return location;
@@ -119,16 +119,17 @@ public class TeamManager {
 		return spectating.getScore(player).getScore() == 1;
 	}
 
-	public Objective registerObjective(String name, String criteria) {
+	private Objective registerObjective(String name, String displayName, String criteria) {
 		Objective objective = this.scoreboard.getObjective(name);
 		if (objective == null) {
 			objective = this.scoreboard.registerNewObjective(name, criteria);
+			objective.setDisplayName(displayName);
 		}
 
 		return objective;
 	}
 
-	public void registerTeam(String teamName, String displayName, ChatColor teamColor) {
+	private void registerTeam(String teamName, String displayName, ChatColor teamColor) {
 		if (scoreboard.getTeam(teamName) == null) {
 			Team team = scoreboard.registerNewTeam(teamName);
 			team.setPrefix(teamColor.toString());

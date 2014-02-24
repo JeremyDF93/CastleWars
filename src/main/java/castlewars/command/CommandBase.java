@@ -1,9 +1,14 @@
 package castlewars.command;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
+import net.minecraft.server.v1_7_R1.Block;
+import net.minecraft.server.v1_7_R1.Item;
+
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandException;
 import org.bukkit.command.CommandSender;
@@ -52,14 +57,6 @@ public abstract class CommandBase {
 			return player;
 		} else {
 			throw new CommandException(String.format("Can't find player %s", name));
-		}
-	}
-
-	public Player getPlayerFromCommandSender(CommandSender sender, String name) {
-		if (sender instanceof Player) {
-			return (Player) sender;
-		} else {
-			return this.getPlayerByName(name);
 		}
 	}
 
@@ -114,6 +111,65 @@ public abstract class CommandBase {
 		return list;
 	}
 
+	public List<String> getListOfStringsMatchingLastWord(String[] args, Iterable<String> iterable) {
+		String string = args[args.length - 1];
+		List<String> list = new ArrayList<String>();
+
+		Iterator<String> iterator = iterable.iterator();
+		while (iterator.hasNext()) {
+			String prefix = iterator.next();
+			if (doesStringStartWith(string, prefix)) {
+				list.add(prefix);
+			}
+		}
+
+		return list;
+	}
+
+	public Material getBlockMaterialByName(String name) {
+		if (Block.REGISTRY.b(name)) {
+			Block block = ((Block) Block.REGISTRY.a(name));
+			return Material.getMaterial(Block.REGISTRY.b(block));
+		} else {
+			try {
+				int id = Integer.parseInt(name);
+				if (Block.REGISTRY.b(id)) {
+					return Material.getMaterial(id);
+				}
+			} catch (NumberFormatException e) {
+				;
+			}
+		}
+
+		throw new CommandException(String.format("There is no such block with ID %s", name));
+	}
+
+	public Material getItemMaterialByName(String name) {
+		if (Item.REGISTRY.b(name)) {
+			Item item = ((Item) Item.REGISTRY.a(name));
+			return Material.getMaterial(Item.REGISTRY.b(item));
+		} else {
+			try {
+				int id = Integer.parseInt(name);
+				if (Item.REGISTRY.b(id)) {
+					return Material.getMaterial(id);
+				}
+			} catch (NumberFormatException e) {
+				;
+			}
+		}
+
+		throw new CommandException(String.format("There is no such item with ID %s", name));
+	}
+
+	public String getBlockNameByMaterial(Material material) {
+		return Block.REGISTRY.c(Block.REGISTRY.a(material.getId()));
+	}
+
+	public String getItemNameByMaterial(Material material) {
+		return Item.REGISTRY.c(Item.REGISTRY.a(material.getId()));
+	}
+
 	public void notifyAdmins(CommandSender sender, String message) {
 		for (Player player : plugin.getServer().getOnlinePlayers()) {
 			if (sender == player) {
@@ -132,14 +188,14 @@ public abstract class CommandBase {
 		}
 	}
 
-	public String[] getAllUsernames() {
-		Player[] players = plugin.getServer().getOnlinePlayers();
-		String[] usernames = new String[players.length];
-		for (int i = 0; i < players.length; i++) {
-			usernames[i] = players[i].getName();
-		}
+	public List<String> getPlayers() {
+		List<String> list = new ArrayList<String>();
 
-		return usernames;
+		Player[] players = plugin.getServer().getOnlinePlayers();
+		for (Player player : players) {
+			list.add(player.getName());
+		}
+		return list;
 	}
 
 	public double getCoordinate(CommandSender sender, double current, String input) {

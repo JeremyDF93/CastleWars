@@ -72,7 +72,7 @@ public class PlayerListener implements Listener {
 		EntityPlayer entityPlayer = ((CraftPlayer) player).getHandle();
 		String playerDisplayName = ScoreboardTeam.getPlayerDisplayName(entityPlayer.getScoreboardTeam(), entityPlayer.getName());
 
-		if (!plugin.getTeamManager().hasTeam(player)) {
+		if (!plugin.getTeamManager().hasTeam(player) && plugin.getGameManager().isGameInProgress()) {
 			plugin.getTeamManager().setSpectating(player, 1);
 			player.setAllowFlight(true);
 			player.setFlying(true);

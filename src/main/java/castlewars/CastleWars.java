@@ -8,9 +8,12 @@ import org.bukkit.plugin.java.JavaPlugin;
 import castlewars.command.CommandCastleWars;
 import castlewars.command.CommandHandler;
 import castlewars.command.CommandKit;
+import castlewars.command.CommandSetCore;
 import castlewars.command.CommandSetKit;
 import castlewars.command.CommandSetSpawn;
+import castlewars.command.CommandSiegeBlocks;
 import castlewars.command.CommandSpawn;
+import castlewars.command.CommandTeam;
 import castlewars.command.CommandTeamChat;
 import castlewars.listener.BlockListener;
 import castlewars.listener.EntityListener;
@@ -24,6 +27,8 @@ public class CastleWars extends JavaPlugin {
 
 	private GameManager gameManager;
 	private TeamManager teamManager;
+	
+	private TestTimer testTimer = new TestTimer(this); // TODO: need to figure out a better spectating system
 
 	@Override
 	public void onEnable() {
@@ -43,6 +48,17 @@ public class CastleWars extends JavaPlugin {
 		commandHandler.registerCommand(new CommandSpawn(this));
 		commandHandler.registerCommand(new CommandKit(this));
 		commandHandler.registerCommand(new CommandSetKit(this));
+		commandHandler.registerCommand(new CommandSiegeBlocks(this));
+		commandHandler.registerCommand(new CommandSetCore(this));
+		commandHandler.registerCommand(new CommandTeam(this));
+		
+		testTimer.runTaskTimer(this, 30, 30);
+		testTimer.start();
+	}
+	
+	@Override
+	public void onDisable() {
+		testTimer.stop();
 	}
 
 	public void addPermission(Permission permission) {

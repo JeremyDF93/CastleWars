@@ -8,7 +8,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import castlewars.CastleWars;
-import castlewars.command.exception.WrongUsageException;
 
 public class CommandSpawn extends CommandBase {
 
@@ -23,21 +22,23 @@ public class CommandSpawn extends CommandBase {
 
 	@Override
 	public void performCommand(CommandSender sender, Command command, String[] args) {
-		if (args.length < 1) {
-			throw new WrongUsageException(command.getUsage());
+		Player player;
+		if (args.length == 1) {
+			player = this.getPlayerByName(args[0]);
 		} else {
-			Player player = this.getPlayerFromCommandSender(sender, args[0]);
-			if (plugin.getTeamManager().hasSpawn(player)) {
-				player.teleport(plugin.getTeamManager().getSpawn(player));
-				notifyAdmins(sender, String.format("Sent %s to their spawn", args[0]));
-			} else {
-				throw new CommandException("The player must be on a team to be able to send them to their spawn!");
-			}
+			player = this.getPlayerFromCommandSender(sender);
+		}
+
+		if (plugin.getTeamManager().hasSpawn(player)) {
+			player.teleport(plugin.getTeamManager().getSpawn(player));
+			notifyAdmins(sender, String.format("Sent %s to their spawn", player.getName()));
+		} else {
+			throw new CommandException("The player must be on a team to be able to send them to their spawn!");
 		}
 	}
 
 	@Override
 	public List<String> addTabCompletionOptions(CommandSender sender, Command command, String[] args) {
-		return args.length == 1 ? getListOfStringsMatchingLastWord(args, this.getAllUsernames()) : null;
+		return args.length == 1 ? getListOfStringsMatchingLastWord(args, getPlayers()) : null;
 	}
 }

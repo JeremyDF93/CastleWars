@@ -8,6 +8,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import castlewars.CastleWars;
+import castlewars.TeamManager;
 import castlewars.command.exception.WrongUsageException;
 
 public class CommandSetSpawn extends CommandBase {
@@ -23,16 +24,18 @@ public class CommandSetSpawn extends CommandBase {
 
 	@Override
 	public void performCommand(CommandSender sender, Command command, String[] args) {
-		if (args.length < 1) {
-			throw new WrongUsageException(command.getUsage());
-		} else {
+		if (args.length >= 1) {
 			Player player = getPlayerFromCommandSender(sender);
-			if (plugin.getTeamManager().isTeam(args[0])) {
-				plugin.getTeamManager().setSpawn(player.getLocation(), args[0]);
+
+			TeamManager teamManager = plugin.getTeamManager();
+			if (teamManager.isTeam(args[0])) {
+				teamManager.setSpawn(player.getLocation(), args[0]);
 				notifyAdmins(sender, String.format("Set spawn for team %s", args[0]));
 			} else {
 				throw new CommandException(String.format("No team was found by the name of '%s'", args[0]));
 			}
+		} else {
+			throw new WrongUsageException(command.getUsage());
 		}
 	}
 

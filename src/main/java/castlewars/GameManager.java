@@ -52,7 +52,7 @@ public class GameManager {
 	}
 
 	public void start(int buildTime, int prepareTime, boolean keepInventory) {
-		gameTimer = new GameTimer(buildTime, prepareTime);
+		gameTimer = new GameTimer(plugin, buildTime, prepareTime);
 		gameTimer.runTaskTimer(plugin, 1200, 1200);
 		gameTimer.start();
 
@@ -123,8 +123,20 @@ public class GameManager {
 		return gameTimer != null;
 	}
 
-	public boolean canPlace(Material material) {
+	public boolean isSiegeMaterial(Material material) {
 		return allowedMaterials.contains(material);
+	}
+
+	public List<Material> getSiegeMaterials() {
+		return allowedMaterials;
+	}
+
+	public void addSiegeMaterial(Material material) {
+		allowedMaterials.add(material);
+	}
+
+	public void removeSiegeMaterial(Material material) {
+		allowedMaterials.remove(material);
 	}
 
 	public boolean isBuilding() {

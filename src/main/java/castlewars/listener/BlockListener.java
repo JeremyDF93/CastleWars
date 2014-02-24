@@ -51,7 +51,7 @@ public class BlockListener implements Listener {
 				}
 
 				if (plugin.getGameManager().isPlaying() && !event.isCancelled()) {
-					event.setCancelled(!plugin.getGameManager().canPlace(block.getType()));
+					event.setCancelled(!plugin.getGameManager().isSiegeMaterial(block.getType()));
 				}
 			}
 		}
@@ -74,7 +74,7 @@ public class BlockListener implements Listener {
 				event.setCancelled(true);
 			} else {
 				if (plugin.getGameManager().isPlaying()) {
-					event.setCancelled(!plugin.getGameManager().canPlace(block.getType()));
+					event.setCancelled(!plugin.getGameManager().isSiegeMaterial(block.getType()));
 				}
 			}
 		}
