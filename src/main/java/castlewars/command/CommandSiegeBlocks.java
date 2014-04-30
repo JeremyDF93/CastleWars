@@ -3,7 +3,7 @@ package castlewars.command;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.server.v1_7_R1.Block;
+import net.minecraft.server.v1_7_R3.Block;
 
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -52,7 +52,7 @@ public class CommandSiegeBlocks extends CommandBase {
 			return getListOfStringsMatchingLastWord(args, new String[] { "add", "remove", "list" });
 		} else {
 			if (args[0].equalsIgnoreCase("add")) {
-				return getListOfStringsMatchingLastWord(args, Block.REGISTRY.b());
+				return getListOfStringsMatchingLastWord(args, Block.REGISTRY.keySet());
 			} else if (args[0].equalsIgnoreCase("remove")) {
 				return getListOfStringsMatchingLastWord(args, getSiegeMaterials());
 			}

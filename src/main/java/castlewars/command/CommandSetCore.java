@@ -2,14 +2,14 @@ package castlewars.command;
 
 import java.util.List;
 
-import net.minecraft.server.v1_7_R1.TileEntity;
-import net.minecraft.server.v1_7_R1.TileEntityBeacon;
+import net.minecraft.server.v1_7_R3.TileEntity;
+import net.minecraft.server.v1_7_R3.TileEntityBeacon;
 
 import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandException;
 import org.bukkit.command.CommandSender;
-import org.bukkit.craftbukkit.v1_7_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_7_R3.CraftWorld;
 import org.bukkit.entity.Player;
 
 import castlewars.CastleWars;

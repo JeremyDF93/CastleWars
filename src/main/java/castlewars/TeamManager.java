@@ -5,17 +5,17 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.Iterator;
 
-import net.minecraft.server.v1_7_R1.EntityHuman;
-import net.minecraft.server.v1_7_R1.NBTCompressedStreamTools;
-import net.minecraft.server.v1_7_R1.NBTTagCompound;
-import net.minecraft.server.v1_7_R1.NBTTagDouble;
-import net.minecraft.server.v1_7_R1.NBTTagFloat;
-import net.minecraft.server.v1_7_R1.NBTTagList;
+import net.minecraft.server.v1_7_R3.EntityHuman;
+import net.minecraft.server.v1_7_R3.NBTCompressedStreamTools;
+import net.minecraft.server.v1_7_R3.NBTTagCompound;
+import net.minecraft.server.v1_7_R3.NBTTagDouble;
+import net.minecraft.server.v1_7_R3.NBTTagFloat;
+import net.minecraft.server.v1_7_R3.NBTTagList;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.craftbukkit.v1_7_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_7_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;

@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import net.minecraft.server.v1_7_R1.Block;
-import net.minecraft.server.v1_7_R1.Item;
+import net.minecraft.server.v1_7_R3.Block;
+import net.minecraft.server.v1_7_R3.Item;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
