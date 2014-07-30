@@ -1,11 +1,12 @@
 package castlewars.command;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-import net.minecraft.server.v1_7_R3.Block;
-import net.minecraft.server.v1_7_R3.Item;
+import net.minecraft.server.v1_7_R4.Block;
+import net.minecraft.server.v1_7_R4.Item;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -128,7 +129,7 @@ public abstract class CommandBase {
 
 	public Material getBlockMaterialByName(String name) {
 		if (Block.REGISTRY.b(name)) {
-			Block block = ((Block) Block.REGISTRY.a(name));
+			Block block = ((Block) Block.REGISTRY.get(name));
 			return Material.getMaterial(Block.REGISTRY.b(block));
 		} else {
 			try {
@@ -146,7 +147,7 @@ public abstract class CommandBase {
 
 	public Material getItemMaterialByName(String name) {
 		if (Item.REGISTRY.b(name)) {
-			Item item = ((Item) Item.REGISTRY.a(name));
+			Item item = ((Item) Item.REGISTRY.get(name));
 			return Material.getMaterial(Item.REGISTRY.b(item));
 		} else {
 			try {
@@ -191,7 +192,7 @@ public abstract class CommandBase {
 	public List<String> getPlayers() {
 		List<String> list = new ArrayList<String>();
 
-		Player[] players = plugin.getServer().getOnlinePlayers();
+		Collection<? extends Player> players = plugin.getServer().getOnlinePlayers();
 		for (Player player : players) {
 			list.add(player.getName());
 		}

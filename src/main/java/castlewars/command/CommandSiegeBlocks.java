@@ -3,7 +3,7 @@ package castlewars.command;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.server.v1_7_R3.Block;
+import net.minecraft.server.v1_7_R4.Block;
 
 import org.bukkit.Material;
 import org.bukkit.command.Command;
